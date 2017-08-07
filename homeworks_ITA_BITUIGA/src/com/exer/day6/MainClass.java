@@ -1,24 +1,67 @@
 package com.exer.day6;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainClass {
-
+	
+	
+	
 	public MainClass() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	public static void main(String[] args) {
-		ArrayList<Ball> thisBalls = new ArrayList<Ball>();
+		List<Ball> originalBalls = new ArrayList<Ball>();
+		List<Ball> baseBalls = new ArrayList<Ball>();
+		List<Ball> diffBalls = new ArrayList<Ball>();
+		List<Ball> heavyScale = new ArrayList<Ball>();
+		Scale wScale = new Scale();
+		Ball oddBall = null;
+		
+		List<Group<Ball>> subgroups = new ArrayList<Group<Ball>>();
+		subgroups.add((Group<Ball>)originalBalls.subList(0, 3));
+		subgroups.get(0).weight = wScale.calculateWeight(subgroups.get(0));
+		subgroups.add((Group<Ball>)originalBalls.subList(4, 7));
+		subgroups.add((Group<Ball>)originalBalls.subList(8, 11));
+		
+		
+		
 		int index = random(1,12);
 		for(int i = 0; i < 12; i++) {
-			if(i == index) thisBalls.add(new Ball(random(1,3)));
-			else thisBalls.add(new Ball(2));
+			if(i == index) originalBalls.add(new Ball(random(1,3)));
+			else originalBalls.add(new Ball(2));
 		}
-		Scale wScale = new Scale();
+		
+		// Step 1
+		heavyScale = wScale.weighScales(subgroups.get(0),subgroups.get(1));
+		if(heavyScale == null && wScale.isEqual) {
+			diffBalls = subgroups.get(2).subList(0, 2);
+			baseBalls = subgroups.get(0).subList(0, 2);
+			
+			heavyScale = wScale.weighScales(diffBalls,baseBalls);
+			
+			if(heavyScale == null && wScale.isEqual) {
+				oddBall = subgroups.get(2).get(3);
+			}
+			else {
+				diffBalls = diffBalls.subList(0, 1);
+				baseBalls = diffBalls.subList(2, 2);
+				
+				heavyScale = wScale.weighScales(diffBalls,baseBalls);
+				
+				if(heavyScale == null && wScale.isEqual) {
+					oddBall = subgroups.get(2).get(3);
+				}
+			}
+		}
+		else {
+			
+		}
 //		wScale.
 		
 	}
+	
 	
 	static int random(int min, int max)
 	{
