@@ -15,6 +15,8 @@ public class MainClass {
 			if(i == index) thisBalls.add(new Ball(random(1,3)));
 			else thisBalls.add(new Ball(2));
 		}
+		Scale wScale = new Scale();
+//		wScale.
 		
 	}
 	
